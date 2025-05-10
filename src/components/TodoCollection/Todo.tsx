@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { DatePicker } from "@/components";
-function Todo() {
-  const [todo, SetTodo] = useState("Todo");
+function Todo({ title, isDone }: { title: string; isDone: boolean }) {
+  const [todo, SetTodo] = useState(title);
   const [isEdit, SetIsEdit] = useState(false);
-  const [isDone, setIsDone] = useState(false);
+  const [isDoneStatus, setIsDoneStauts] = useState(isDone);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -37,7 +37,8 @@ function Todo() {
     >
       <div className="flex grow items-center gap-3">
         <Checkbox
-          onCheckedChange={() => setIsDone(!isDone)}
+          onCheckedChange={() => setIsDoneStauts(!isDoneStatus)}
+          checked={isDoneStatus}
           className="rounded-full border-gray-400 focus-visible:ring-ring/0
         data-[state=checked]:bg-amber-500 data-[state=checked]:border-amber-500 data-[state=checked]:text-white"
         />
@@ -53,7 +54,7 @@ function Todo() {
           }}
           className={`w-full p-1 border-transparent shadow-none focus:outline-none focus:ring-0 focus:border-stone-400 
             ${isEdit ? "border-b" : ""}
-            ${isDone ? "line-through text-gray-400" : ""}`}
+            ${isDoneStatus ? "line-through text-gray-400" : ""}`}
         />
       </div>
       <div className="flex items-center gap-2">

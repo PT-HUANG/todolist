@@ -13,7 +13,7 @@ function TodoInput() {
   const [content, setContent] = useState("");
 
   return (
-    <div className="mt-2 p-4 sm:px-6 flex flex-col gap-4 items-start justify-center sm:justify-between">
+    <div className="p-4 sm:px-6 flex flex-col gap-4 items-start justify-center sm:justify-between">
       <div className="flex gap-2 w-full">
         <Input
           placeholder="新增待辦事項"
@@ -28,7 +28,7 @@ function TodoInput() {
       </div>
       <div className="flex gap-4 w-full sm:justify-between">
         <Button
-          className="bg-indigo-700 hover:bg-indigo-600 text-white hover:text-white font-bold rounded-md"
+          className="cursor-pointer bg-cyan-500 hover:bg-cyan-400 text-white font-bold rounded-md"
           disabled={!content.trim()}
         >
           加入清單

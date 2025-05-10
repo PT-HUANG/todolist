@@ -2,7 +2,6 @@ import {
   Header,
   TodoInput,
   TodoCollection,
-  Footer,
   PageContainer,
   TodoPageContainer,
 } from "@/components";
@@ -15,7 +14,6 @@ function Home() {
           <Header />
           <TodoInput />
           <TodoCollection />
-          <Footer />
         </TodoPageContainer>
       </PageContainer>
     </>
