@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseURL = "http://localhost:5000/todos"
+const baseURL = "https://json-server-qv6z.onrender.com/todos"
 
 export const fetchTodos = async () => {
   try {
