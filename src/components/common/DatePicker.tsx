@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
@@ -7,10 +6,24 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { useTodo } from "@/context/TodoContext";
 
-function DatePicker() {
-  const [date, setDate] = useState<Date>(new Date());
+type DatePickerProps = {
+  id: string | null;
+  date: Date;
+  setDate: (parameter: Date) => void;
+};
+
+function DatePicker({ id, date, setDate }: DatePickerProps) {
+  const { EditExpireDate } = useTodo();
   const isExpired = new Date().setHours(0, 0, 0, 0) > date.setHours(0, 0, 0, 0);
+
+  const handleChangeDate = (date: Date) => {
+    setDate(date);
+    if (id) {
+      EditExpireDate(id, date.toISOString());
+    }
+  };
 
   return (
     <Popover>
@@ -28,7 +41,8 @@ function DatePicker() {
           mode="single"
           selected={date}
           onSelect={(date) => {
-            if (date) setDate(date);
+            if (!date) return;
+            handleChangeDate(date);
           }}
           initialFocus
         />

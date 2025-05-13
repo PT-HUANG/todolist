@@ -1,11 +1,11 @@
-import UserInfo from "./UserInfo";
+import Logout from "./Logout";
 function Header() {
   return (
-    <div className="relative mx-2 sm:mx-6">
-      <div className="font-[Comic_Relief] text-2xl text-slate-500 font-bold text-center my-2">
+    <div className="relative mx-auto my-2 sm:mx-6 flex items-center justify-between">
+      <div className="font-[Comic_Relief] font-bold text-2xl text-slate-500 text-left pl-4">
         Todolist
       </div>
-      <UserInfo />
+      <Logout />
     </div>
   );
 }
