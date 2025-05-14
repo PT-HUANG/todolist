@@ -13,15 +13,15 @@ type TodoType = {
 
 function Todo({ id, title, expireDate, isDone }: TodoType) {
   const { ToggleIsDone, EditTodoTitle, DeleteTodo } = useTodo();
-  const [todoTitle, setTodoTitle] = useState<string>(title);
-  const [date, setDate] = useState<Date>(new Date(expireDate));
+  const [todoTitle, setTodoTitle] = useState(title);
+  const [date, setDate] = useState(new Date(expireDate));
   const [localIsDone, setLocalIsDone] = useState(isDone);
   const [isEditing, setIsEditing] = useState(false);
 
   const debouncedToggle = useRef(
     debounce((id: string) => {
       ToggleIsDone(id);
-    }, 2000)
+    }, 1000)
   ).current;
 
   const handleCheck = () => {

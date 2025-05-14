@@ -7,33 +7,6 @@ import {
   deleteTodo,
 } from "@/api/json-server";
 
-// const dummyData = [
-//   {
-//     id: 1,
-//     title: "Learn react-router",
-//     expireDate: "2025-05-13T12:00:00.000Z",
-//     isDone: true,
-//   },
-//   {
-//     id: 2,
-//     title: "Learn to create custom hooks",
-//     expireDate: "2025-05-13T12:00:00.000Z",
-//     isDone: false,
-//   },
-//   {
-//     id: 3,
-//     title: "Learn to use context",
-//     expireDate: "2025-05-13T12:00:00.000Z",
-//     isDone: true,
-//   },
-//   {
-//     id: 4,
-//     title: "Learn to implement auth",
-//     expireDate: "2025-05-13T12:00:00.000Z",
-//     isDone: false,
-//   },
-// ];
-
 // variable type
 type TodoType = {
   id: string;
@@ -118,16 +91,11 @@ export const TodoProvider = ({ children }: TodoProviderProps) => {
     await updateTodo(newTodo);
   };
 
-  const EditExpireDate: EditExpireDateType = (id, newDate) => {
+  const EditExpireDate: EditExpireDateType = async (id, newDate) => {
     const toEdit = todos.find((todo) => todo.id === id);
     if (!toEdit) return;
     const newTodo = { ...toEdit, expireDate: newDate };
-    const nextTodos = todos.map((todo) => {
-      if (todo.id === id) {
-        return newTodo;
-      } else return todo;
-    });
-    setTodos(nextTodos);
+    await updateTodo(newTodo);
   };
 
   const DeleteTodo: DeleteTodoType = async (id) => {

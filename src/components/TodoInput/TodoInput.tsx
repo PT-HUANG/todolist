@@ -12,8 +12,9 @@ import {
 } from "@/components/ui/select";
 function TodoInput() {
   const [title, setTitle] = useState("");
-  const [date, setDate] = useState<Date>(new Date());
+  const [date, setDate] = useState(new Date());
   const { AddTodo, handleSelect } = useTodo();
+  const hasInput = title.trim() !== "";
 
   const handleAddTodo = () => {
     const formatDate = date.toISOString();
@@ -26,10 +27,13 @@ function TodoInput() {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    const hasInput = title.trim() !== "";
     if (e.key === "Enter" && hasInput) {
       handleAddTodo();
     }
+  };
+
+  const handleButtonClick = () => {
+    handleAddTodo();
   };
 
   return (
@@ -49,9 +53,9 @@ function TodoInput() {
       </div>
       <div className="flex flex-wrap justify-between w-full sm:justify-between">
         <Button
-          onClick={handleAddTodo}
+          onClick={handleButtonClick}
           className="cursor-pointer bg-cyan-500 hover:bg-cyan-400 text-white font-bold rounded-md"
-          disabled={!title.trim()}
+          disabled={!hasInput}
         >
           加入清單
         </Button>

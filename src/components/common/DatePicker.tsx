@@ -44,7 +44,7 @@ function DatePicker({ id, date, setDate }: DatePickerProps) {
             if (!date) return;
             handleChangeDate(date);
           }}
-          initialFocus
+          className="rounded-md border"
         />
       </PopoverContent>
     </Popover>

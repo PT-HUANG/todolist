@@ -24,7 +24,7 @@ function TodoCollection() {
 
   useEffect(() => {
     GetTodos();
-  }, []);
+  }, [filteredTodos]);
 
   return (
     <div className="sm:px-4">
