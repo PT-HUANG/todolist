@@ -1,11 +1,6 @@
 import { useState, useContext, createContext } from "react";
 import type { ReactNode } from "react";
-import {
-  fetchTodos,
-  createTodo,
-  updateTodo,
-  deleteTodo,
-} from "@/api/json-server";
+import { addTodo, getTodos, updateTodo, deleteTodo } from "@/api/firestore";
 
 // variable type
 type TodoType = {
@@ -65,43 +60,47 @@ export const TodoProvider = ({ children }: TodoProviderProps) => {
   };
 
   const GetTodos = async () => {
-    const todos = await fetchTodos();
-    setTodos(todos);
+    const todos = await getTodos();
+    if (todos) {
+      setTodos(todos);
+    }
   };
 
   const AddTodo: AddTodoType = async (title, expireDate) => {
-    const id = Math.floor(Math.random() * 1000000).toString();
-    const newTodo = { id, title, expireDate, isDone: false };
-    await createTodo(newTodo);
-    const nextTodos = [...todos, newTodo];
-    setTodos(nextTodos);
+    await addTodo(title, expireDate);
+    GetTodos();
   };
 
-  const ToggleIsDone: ToggleIsDoneType = async (id) => {
-    const toToggle = todos.find((todo) => todo.id === id);
+  const ToggleIsDone: ToggleIsDoneType = async (editid) => {
+    const toToggle = todos?.find((todo) => todo.id === editid);
     if (!toToggle) return;
-    const newTodo = { ...toToggle, isDone: !toToggle.isDone };
-    await updateTodo(newTodo);
+    toToggle["isDone"] = !toToggle.isDone;
+    const { id, title, expireDate, isDone } = toToggle;
+    await updateTodo(id, title, expireDate, isDone);
+    GetTodos();
   };
 
-  const EditTodoTitle: EditTodoTitleType = async (id, newTitle) => {
-    const toEdit = todos.find((todo) => todo.id === id);
+  const EditTodoTitle: EditTodoTitleType = async (editid, newTitle) => {
+    const toEdit = todos?.find((todo) => todo.id === editid);
     if (!toEdit) return;
-    const newTodo = { ...toEdit, title: newTitle };
-    await updateTodo(newTodo);
+    toEdit["title"] = newTitle;
+    const { id, title, expireDate, isDone } = toEdit;
+    await updateTodo(id, title, expireDate, isDone);
+    GetTodos();
   };
 
-  const EditExpireDate: EditExpireDateType = async (id, newDate) => {
-    const toEdit = todos.find((todo) => todo.id === id);
+  const EditExpireDate: EditExpireDateType = async (editid, newDate) => {
+    const toEdit = todos?.find((todo) => todo.id === editid);
     if (!toEdit) return;
-    const newTodo = { ...toEdit, expireDate: newDate };
-    await updateTodo(newTodo);
+    toEdit["expireDate"] = newDate;
+    const { id, title, expireDate, isDone } = toEdit;
+    await updateTodo(id, title, expireDate, isDone);
+    GetTodos();
   };
 
   const DeleteTodo: DeleteTodoType = async (id) => {
-    const nextTodos = todos.filter((todo) => todo.id !== id);
     await deleteTodo(id);
-    setTodos(nextTodos);
+    GetTodos();
   };
 
   return (

@@ -1,6 +1,8 @@
 import Todo from "./Todo";
 import { useTodo } from "@/context/TodoContext";
 import { useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "@/api/firebase";
 
 function TodoCollection() {
   const { GetTodos, todos, selectedStatus } = useTodo();
@@ -23,8 +25,12 @@ function TodoCollection() {
   }
 
   useEffect(() => {
-    GetTodos();
-  }, [filteredTodos]);
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        GetTodos();
+      }
+    });
+  }, [todos.length]);
 
   return (
     <div className="sm:px-4 max-h-[60vh] overflow-y-auto scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent hover:scrollbar-thumb-stone-300">
