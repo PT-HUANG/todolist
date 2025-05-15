@@ -5,12 +5,13 @@ import {
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
-  // AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { signOut } from "firebase/auth";
+import { auth } from "@/api/firebase";
 
 // 目前因為 React 版本的問題
 // React 18 並不接受 ref as a prop 的傳遞方式，所以會報錯
@@ -20,16 +21,18 @@ import {
 function Logout() {
   const navigate = useNavigate();
 
-  function handleLogout() {
-    localStorage.removeItem("user_google");
-    localStorage.removeItem("user_github");
-    navigate("/login");
-  }
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      localStorage.removeItem("user_firebase");
+      navigate("/login");
+    } catch (error) {
+      console.error("登出失敗:", error);
+    }
+  };
 
   useEffect(() => {
-    const isLoggedIn =
-      localStorage.getItem("user_google") ||
-      localStorage.getItem("user_github");
+    const isLoggedIn = localStorage.getItem("user_firebase");
 
     if (!isLoggedIn) {
       navigate("/login");
