@@ -64,7 +64,7 @@ import { initializeApp } from "firebase/app";
 import {
     getAuth,
     signInWithRedirect,
-    getRedirectResult,
+    // getRedirectResult,
     GoogleAuthProvider,
     GithubAuthProvider,
 } from "firebase/auth";
