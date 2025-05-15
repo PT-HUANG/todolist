@@ -12,8 +12,6 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-import { getTodos } from "@/api/firestore";
-
 // 目前因為 React 版本的問題
 // React 18 並不接受 ref as a prop 的傳遞方式，所以會報錯
 // 但如果升級到 React 19 會導致選擇日期的 react-day-picker 出現樣式的問題(2025/5/14 官方尚未修復)
