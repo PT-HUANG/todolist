@@ -27,7 +27,7 @@ function TodoCollection() {
   }, [filteredTodos]);
 
   return (
-    <div className="sm:px-4">
+    <div className="sm:px-4 max-h-[60vh] overflow-y-auto scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent hover:scrollbar-thumb-stone-300">
       {filteredTodos?.map((todo) => {
         const { id, title, expireDate, isDone } = todo;
         return (
