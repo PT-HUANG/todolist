@@ -1,37 +1,20 @@
 import { Button } from "@/components/ui/button";
 import google from "@/assets/google.svg";
-import { loginWithOAuth, auth } from "@/api/firebase";
-import { getRedirectResult } from "firebase/auth";
+import { loginWithOAuth } from "@/api/firebase";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "@/api/firebase";
 
 function LoginForm() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const handleRedirectResult = async () => {
-      try {
-        const result = await getRedirectResult(auth);
-        console.log("🔁 getRedirectResult:", result);
-
-        if (result && result.user) {
-          const user = result.user;
-          localStorage.setItem(
-            "user_firebase",
-            JSON.stringify({
-              name: user.displayName,
-              email: user.email,
-              uid: user.uid,
-            })
-          );
-          navigate("/"); // 導回主頁
-        }
-      } catch (error: any) {
-        console.error("處理 redirect 登入錯誤：", error.message);
-      }
-    };
-
-    handleRedirectResult();
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        navigate("/");
+      } else console.log("尚未登入");
+    });
   }, [navigate]);
 
   return (
