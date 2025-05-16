@@ -1,12 +1,20 @@
-import { Header, TodoInput, TodoCollection, PageContainer } from "@/components";
+import {
+  Header,
+  TodoInput,
+  TodoCollection,
+  PageContainer,
+  ContentCard,
+} from "@/components";
 
 function Home() {
   return (
     <>
       <PageContainer>
-        <Header />
-        <TodoInput />
-        <TodoCollection />
+        <ContentCard style={1}>
+          <Header />
+          <TodoInput />
+          <TodoCollection />
+        </ContentCard>
       </PageContainer>
     </>
   );

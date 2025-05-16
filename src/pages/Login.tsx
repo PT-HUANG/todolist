@@ -1,10 +1,19 @@
-import { PageContainer, LoginTitle, LoginForm } from "@/components";
+import {
+  PageContainer,
+  ContentCard,
+  LoginForm,
+  RegisterForm,
+} from "@/components";
 function Login() {
   return (
     <>
       <PageContainer>
-        <LoginTitle />
-        <LoginForm />
+        <ContentCard style={2}>
+          <RegisterForm />
+        </ContentCard>
+        <ContentCard style={2}>
+          <LoginForm />
+        </ContentCard>
       </PageContainer>
     </>
   );

@@ -14,7 +14,7 @@ export default defineConfig({
     host: '0.0.0.0',
     port: 3000,
   },
-  base: "./todolist/",
+  base: "/",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

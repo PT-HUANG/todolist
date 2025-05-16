@@ -1,11 +1,7 @@
 function PageContainer({ children }: { children: React.ReactNode }) {
   return (
-    <div className="h-[100vh] bg-slate-100 sm:p-8">
-      <div className="container mx-auto p-4">
-        <div className="overflow-hidden bg-white max-w-[600px] mx-auto border border-black rounded-lg shadow-lg p-4">
-          <div className="max-w-[450px] mx-auto sm:max-w-full">{children}</div>
-        </div>
-      </div>
+    <div className="h-full sm:min-h-[100vh] bg-slate-100 px-4 py-6 sm:px-8 sm:py-8 flex flex-col-reverse justify-end sm:flex-row sm:justify-center gap-4">
+      {children}
     </div>
   );
 }
