@@ -5,6 +5,8 @@ import {
     signInWithPopup,
     GoogleAuthProvider,
     GithubAuthProvider,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
 } from "firebase/auth";
 // import { getAnalytics } from "firebase/analytics";
 
@@ -59,5 +61,55 @@ export const loginWithOAuth = async (path: string) => {
         window.location.href = "/";
     } catch (error: any) {
         console.error("登入失敗：", error.message);
+    }
+};
+
+// 註冊功能
+export const signupWithEmailPassword = async (
+    email: string,
+    password: string
+) => {
+    try {
+        const auth = getAuth();
+        const result = await createUserWithEmailAndPassword(auth, email, password);
+        const user = result.user;
+        localStorage.setItem(
+            "user_firebase",
+            JSON.stringify({
+                name: user.displayName,
+                email: user.email,
+                uid: user.uid,
+            })
+        );
+        console.log("登入成功：", user);
+        window.location.href = "/";
+    } catch (error: any) {
+        console.error("註冊失敗：", error.message);
+        return false;
+    }
+};
+
+// Email密碼登入功能
+export const loginWithEmailPassword = async (
+    email: string,
+    password: string
+) => {
+    try {
+        const auth = getAuth();
+        const result = await signInWithEmailAndPassword(auth, email, password);
+        const user = result.user;
+        localStorage.setItem(
+            "user_firebase",
+            JSON.stringify({
+                name: user.displayName,
+                email: user.email,
+                uid: user.uid,
+            })
+        );
+        console.log("登入成功：", user);
+        window.location.href = "/";
+    } catch (error: any) {
+        console.error("登入失敗：", error.message);
+        return false;
     }
 };
