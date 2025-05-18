@@ -33,7 +33,6 @@ function LoginForm() {
   const [password, setPassword] = useState<string>("");
   const [zodError, setZodError] = useState<zodErrorType>();
   const [loginError, setLoginError] = useState<string>("");
-  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
