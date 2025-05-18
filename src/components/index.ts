@@ -7,3 +7,4 @@ export { default as ResetForm } from "./ResetForm";
 export { PageContainer } from "./common";
 export { DatePicker } from "./common";
 export { ContentCard } from "./common";
+export { Spinner } from "./common";

@@ -4,6 +4,7 @@ import { z } from "zod";
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { resetPassword } from "@/api/firebase";
+import { Spinner } from "../common";
 
 const registerSchema = z
   .object({
@@ -29,6 +30,7 @@ type zodErrorType = {
 };
 
 function ResetForm() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [zodError, setZodError] = useState<zodErrorType>();
@@ -38,7 +40,7 @@ function ResetForm() {
 
   useEffect(() => {
     if (!actionCode) {
-      navigate("/"); // 沒有 oobCode 就導回首頁或錯誤頁
+      navigate("/");
       return;
     }
   }, [navigate, actionCode]);
@@ -62,18 +64,19 @@ function ResetForm() {
       return;
     } else {
       if (actionCode) {
-        const result = await resetPassword(actionCode, password);
-        console.log("密碼更新成功");
-        console.log(result);
+        await resetPassword(actionCode, password);
+        setIsLoading(true);
+        setPassword("");
+        setConfirmPassword("");
       }
-      return;
       setTimeout(() => {
         navigate("/login");
       }, 3000);
     }
   };
-
-  return (
+  return isLoading ? (
+    <Spinner />
+  ) : (
     <>
       <div className="relative my-3 flex items-center justify-between">
         <div className="font-[Comic_Relief] font-bold text-2xl text-slate-800 text-left pl-4">
