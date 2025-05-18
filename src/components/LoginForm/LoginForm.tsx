@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import ResetDialog from "./ResetDialog";
 import google from "@/assets/google.svg";
 import { loginWithOAuth, loginWithEmailPassword } from "@/api/firebase";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/api/firebase";
@@ -32,6 +33,7 @@ function LoginForm() {
   const [password, setPassword] = useState<string>("");
   const [zodError, setZodError] = useState<zodErrorType>();
   const [loginError, setLoginError] = useState<string>("");
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
@@ -115,12 +117,7 @@ function LoginForm() {
         >
           <div className="font-bold text-base text-white">登入</div>
         </Button>
-        <Link
-          to="/"
-          className="w-full mx-auto mb-4 text-green-700 text-center hover:underline"
-        >
-          忘記密碼?
-        </Link>
+        <ResetDialog />
         <Button
           onClick={() => handleLoginWithOAuth("google")}
           className="rounded-sm w-full py-6 pr-8 my-2 h-10 flex items-center justify-center gap-3 cursor-pointer bg-white hover:bg-slate-100 border border-zinc-300 overflow-hidden"
