@@ -36,7 +36,7 @@ function ResetForm() {
   const [zodError, setZodError] = useState<zodErrorType>();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const actionCode = searchParams.get("oobCode"); // 這就是 oobCode
+  const actionCode = searchParams.get("oobCode");
 
   useEffect(() => {
     if (!actionCode) {

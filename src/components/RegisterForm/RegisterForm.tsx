@@ -51,6 +51,15 @@ function RegisterForm() {
       const error_confirmPassword =
         result.error.issues.find((e) => e.path.includes("confirmPassword"))
           ?.message || null;
+      if (error_email) {
+        setEmail("");
+      }
+      if (error_password) {
+        setPassword("");
+      }
+      if (error_confirmPassword) {
+        setConfirmPassword("");
+      }
       setZodError({
         error_email,
         error_password,
@@ -60,6 +69,7 @@ function RegisterForm() {
     } else {
       const result = await signupWithEmailPassword(email, password);
       if (!result) {
+        setEmail("");
         setZodError({
           error_email: "※此Email已經註冊過",
           error_password: "",
@@ -84,10 +94,14 @@ function RegisterForm() {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="px-3 py-3 w-full focus-visible:ring-ring/0 bg-gray-50 border-zinc-300"
+          className={`px-3 py-3 w-full focus-visible:ring-ring/0 bg-gray-50 focus-visible:border-ring ${
+            !email.length && zodError?.error_email
+              ? "border-red-500 focus-visible:border-red-500"
+              : "border-zinc-300"
+          }`}
         />
         <span className="text-base text-red-500 font-bold mt-1">
-          {zodError?.error_email}
+          {!email.length && zodError?.error_email}
         </span>
         <span className="text-left text-lg mt-2 after:relative after:left-0.5 after:bottom-1.5 after:text-sm  after:text-red-500 after:content-['*']">
           密碼
@@ -96,10 +110,14 @@ function RegisterForm() {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="px-3 py-3 w-full focus-visible:ring-ring/0 bg-gray-50 border-zinc-300"
+          className={`px-3 py-3 w-full focus-visible:ring-ring/0 bg-gray-50 focus-visible:border-ring ${
+            !password.length && zodError?.error_password
+              ? "border-red-500 focus-visible:border-red-500"
+              : "border-zinc-300"
+          }`}
         />
         <span className="text-base text-red-500 font-bold mt-1">
-          {zodError?.error_password}
+          {!password.length && zodError?.error_password}
         </span>
         <span className="text-left text-lg mt-2 after:relative after:left-0.5 after:bottom-1.5 after:text-sm  after:text-red-500 after:content-['*']">
           再次確認密碼
@@ -108,10 +126,14 @@ function RegisterForm() {
           type="password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
-          className="px-3 py-3 w-full focus-visible:ring-ring/0 bg-gray-50 border-zinc-300"
+          className={`px-3 py-3 w-full focus-visible:ring-ring/0 bg-gray-50 focus-visible:border-ring ${
+            !confirmPassword.length && zodError?.error_confirmPassword
+              ? "border-red-500 focus-visible:border-red-500"
+              : "border-zinc-300"
+          }`}
         />
         <span className="text-base text-red-500 font-bold mt-1">
-          {zodError?.error_confirmPassword}
+          {!confirmPassword.length && zodError?.error_confirmPassword}
         </span>
         <div className="my-2 p-4 bg-gray-100 rounded-md">
           我們會使用你的個人資料來支援你在本網站中的使用體驗、管理你的帳號存取權，以及用於隱私權政策中說明的其他用途。

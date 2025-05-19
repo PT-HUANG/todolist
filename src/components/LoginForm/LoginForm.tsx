@@ -54,6 +54,12 @@ function LoginForm() {
       const error_password =
         result.error.issues.find((e) => e.path.includes("password"))?.message ||
         null;
+      if (error_email) {
+        setEmail("");
+      }
+      if (error_password) {
+        setPassword("");
+      }
       setZodError({
         error_email,
         error_password,
@@ -66,6 +72,8 @@ function LoginForm() {
           error_email: "",
           error_password: "",
         });
+        setEmail("");
+        setPassword("");
         setLoginError("※登入失敗，請檢查帳號密碼是否正確");
       }
     }
@@ -91,24 +99,32 @@ function LoginForm() {
         </span>
         <Input
           type="email"
-          onChange={(e) => setEmail(e.target.value)}
           value={email}
-          className="px-3 py-3 w-full focus-visible:ring-ring/0 bg-gray-50 border-zinc-300"
+          onChange={(e) => setEmail(e.target.value)}
+          className={`px-3 py-3 w-full focus-visible:ring-ring/0 bg-gray-50 focus-visible:border-ring ${
+            !email.length && zodError?.error_email
+              ? "border-red-500 focus-visible:border-red-500"
+              : "border-zinc-300"
+          }`}
         />
         <span className="text-base text-red-500 font-bold mt-1">
-          {zodError?.error_email}
+          {!email.length && zodError?.error_email}
         </span>
         <span className="text-left text-lg my-2 after:relative after:left-0.5 after:bottom-1.5 after:text-sm  after:text-red-500 after:content-['*']">
           密碼
         </span>
         <Input
           type="password"
-          onChange={(e) => setPassword(e.target.value)}
           value={password}
-          className="px-3 py-3 mb-2 w-full focus-visible:ring-ring/0 bg-gray-50 border-zinc-300"
+          onChange={(e) => setPassword(e.target.value)}
+          className={`px-3 py-3 w-full focus-visible:ring-ring/0 bg-gray-50 focus-visible:border-ring ${
+            !password.length && zodError?.error_password
+              ? "border-red-500 focus-visible:border-red-500"
+              : "border-zinc-300"
+          }`}
         />
         <span className="text-base text-red-500 font-bold mt-1">
-          {zodError?.error_password}
+          {!password.length && zodError?.error_password}
         </span>
         <Button
           onClick={handleLoginWithPassword}

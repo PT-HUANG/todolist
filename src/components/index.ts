@@ -8,3 +8,4 @@ export { PageContainer } from "./common";
 export { DatePicker } from "./common";
 export { ContentCard } from "./common";
 export { Spinner } from "./common";
+export { Firstview } from "./common";
