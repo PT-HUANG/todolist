@@ -4,26 +4,36 @@ import {
   LoginForm,
   RegisterForm,
   Firstview,
+  Introduction,
 } from "@/components";
 import { useEffect, useState } from "react";
+
 function Login() {
-  const [isShow, setIsShow] = useState<boolean>(false);
+  const [isLoginShow, setIsLoginShow] = useState<boolean>(false);
+
   useEffect(() => {
-    setIsShow(true);
     setTimeout(() => {
-      setIsShow(false);
+      setIsLoginShow(true);
     }, 2000);
   }, []);
+
   return (
     <>
       <PageContainer>
-        {isShow && <Firstview />}
-        <ContentCard style={2}>
-          <RegisterForm />
-        </ContentCard>
-        <ContentCard style={2}>
-          <LoginForm />
-        </ContentCard>
+        <Firstview />
+        {isLoginShow && (
+          <>
+            <Introduction />
+            <div className="sm:flex gap-4">
+              <ContentCard style={2}>
+                <RegisterForm />
+              </ContentCard>
+              <ContentCard style={2}>
+                <LoginForm />
+              </ContentCard>
+            </div>
+          </>
+        )}
       </PageContainer>
     </>
   );

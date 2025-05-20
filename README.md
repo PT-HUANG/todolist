@@ -1,54 +1,27 @@
-# React + TypeScript + Vite
+# 關於 Tolist
+**Todolist** 是一個任務清單管理小工具，支援使用者註冊、登入後建立與管理待辦事項。
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 網站連結
+### 📝 開始使用
+[https://todolist-cd951.web.app/](https://todolist-cd951.web.app/)
 
-Currently, two official plugins are available:
+## 使用技術
+### 🚧 前端框架與 UI
+- Vite + React 18 + TypeScript
+- React Router v7
+- Tailwind CSS
+- Tailwind Scrollbar
+- shadcn/ui
+- Zod
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### ☁️ Firebase 雲端服務
+- Firebase Authentication（使用者驗證）
+- Firestore（雲端 NoSQL 資料庫）
+- Firebase Hosting（靜態網站託管）
 
-## Expanding the ESLint configuration
+## 📸 Screenshots
+### 🖥️ 登入畫面
+![登入畫面](public/demo_1.png)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+### 📂 主要頁面
+![主要頁面](public/demo_2.png)
